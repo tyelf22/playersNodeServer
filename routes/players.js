@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
     const player = req.body
 
     players.push({id: uuidv4(), ...player })
-    res.send(`${player.firstname} ${player.lastname} has been added to database.`)
+    res.send(player)
 })
 
 router.get('/:id', (req, res) => {
@@ -37,9 +37,10 @@ router.get('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const { id } = req.params
+    const foundPlayer = players.find((player) => player.id === id)
 
     players = players.filter((player) => player.id !== id )
-    res.send(`Player with id ${id} has been deleted`)
+    res.send(`${foundPlayer.firstname} ${foundPlayer.lastname} has been deleted.`)
 })
 
 router.put('/:id', (req, res) => {
@@ -57,7 +58,7 @@ router.put('/:id', (req, res) => {
 
     players[index] = player
 
-    res.send(`Player with id ${id} has been updated`)
+    res.send(player)
 
 })
 
